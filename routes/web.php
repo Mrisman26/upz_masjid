@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\KalkulatorZakatController;
 use App\Http\Controllers\KepalaKeluargaController;
 use App\Http\Controllers\MustahikController;
 use App\Http\Controllers\ProfileController;
@@ -37,7 +38,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('rekap-zakat', [RekapZakatController::class, 'zakat'])->name('rekap-zakat');
     Route::get('rekap-mustahik', [RekapZakatController::class, 'mustahik'])->name('rekap-mustahik');
 
-
+    Route::get('/rekap-kalkulator', [KalkulatorZakatController::class, 'index'])->name('rekap-kalkulator');
 });
 
 require __DIR__.'/auth.php';

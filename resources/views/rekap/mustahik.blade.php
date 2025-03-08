@@ -1,5 +1,7 @@
 @extends('Template.Index')
 
+@section('title', 'Rekap Data Mustahik - UPZ Masjid At-Taqwa')
+
 @section('content')
 <div class="container-fluid">
     <h1 class="h3 mb-4 text-gray-800 font-weight-bold">Data Mustahik</h1>
@@ -62,7 +64,7 @@
                             <th>Kriteria</th>
                             <th>RT/RW</th>
                             <th>Keterangan</th>
-                            <th>Aksi</th>
+                            {{-- <th>Aksi</th> --}}
                         </tr>
                     </thead>
                     <tbody>
@@ -73,14 +75,14 @@
                             <td>{{ $mustahik->kriteria }}</td>
                             <td>RT {{ optional($mustahik->rtRw)->rt }} / RW {{ optional($mustahik->rtRw)->rw }}</td>
                             <td>{{ $mustahik->keterangan ?? '-' }}</td>
-                            <td>
+                            {{-- <td>
                                 <a href="{{ route('mustahik.edit', $mustahik->id) }}" class="btn btn-warning btn-sm">Edit</a>
                                 <form action="{{ route('mustahik.destroy', $mustahik->id) }}" method="POST" class="d-inline" onsubmit="return confirm('Yakin ingin menghapus?')">
                                     @csrf
                                     @method('DELETE')
                                     <button type="submit" class="btn btn-danger btn-sm">Hapus</button>
                                 </form>
-                            </td>
+                            </td> --}}
                         </tr>
                         @endforeach
                     </tbody>

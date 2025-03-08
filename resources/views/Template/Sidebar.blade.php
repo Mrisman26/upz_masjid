@@ -87,6 +87,7 @@
                 <h6 class="collapse-header">Rekap Data:</h6>
                 <a class="collapse-item" href="{{ route('rekap-zakat') }}">Rekap Zakat</a>
                 <a class="collapse-item" href="{{ route('rekap-mustahik') }}">Rekap Mustahik</a>
+                <a class="collapse-item" href="{{ route('rekap-kalkulator') }}">Kalkulator</a>
             </div>
         </div>
     </li>

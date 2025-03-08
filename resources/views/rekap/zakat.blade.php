@@ -1,6 +1,6 @@
 @extends('Template.Index')
 
-@section('title', 'Data Zakat - UPZ Masjid At-Taqwa')
+@section('title', 'Rekap Data Zakat - UPZ Masjid At-Taqwa')
 
 @section('content')
 
@@ -72,7 +72,7 @@
                             </tr>
                             @endforeach
                         </tbody>
-                        <tfoot class="thead-dark">
+                        <tfoot class="bg-primary text-white">
                             <tr>
                                 <th colspan="2" class="text-center">TOTAL</th>
                                 <th class="text-center" id="totalRT24">0</th>

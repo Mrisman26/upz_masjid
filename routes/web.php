@@ -39,6 +39,9 @@ Route::middleware(['auth'])->group(function () {
     Route::get('rekap-mustahik', [RekapZakatController::class, 'mustahik'])->name('rekap-mustahik');
 
     Route::get('/rekap-kalkulator', [KalkulatorZakatController::class, 'index'])->name('rekap-kalkulator');
+
+    Route::get('pdf/{tahun?}', [ZakatController::class, 'exportPDF'])->name('pdf');
+
 });
 
 require __DIR__.'/auth.php';

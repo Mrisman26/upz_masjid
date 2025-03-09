@@ -6,68 +6,70 @@
 
 <!-- Content Wrapper -->
 <div id="content-wrapper" class="d-flex flex-column">
-
-    <!-- Main Content -->
     <div id="content">
-
-        <!-- Begin Page Content -->
         <div class="container-fluid">
             <div class="card">
                 <div class="card-header">Data RT/RW</div>
                 <div class="card-body">
 
-                    <!-- Notifikasi dengan SweetAlert -->
                     @if(session('success'))
-                        <script>
-                            document.addEventListener("DOMContentLoaded", function() {
-                                Swal.fire({
-                                    title: 'Berhasil!',
-                                    text: "{{ session('success') }}",
-                                    icon: 'success',
-                                    confirmButtonText: 'OK'
-                                });
+                    <script>
+                        document.addEventListener("DOMContentLoaded", function() {
+                            Swal.fire({
+                                title: 'Berhasil!',
+                                text: "{{ session('success') }}",
+                                icon: 'success',
+                                confirmButtonText: 'OK'
                             });
-                        </script>
+                        });
+                    </script>
                     @endif
 
-                    <a href="{{ route('rt-rw.create') }}" class="btn btn-primary mb-3">Tambah RT/RW</a>
-                    <table class="table table-bordered text-center" id="dataTable">
-                        <thead>
-                            <tr>
-                                <th>No</th>
-                                <th>RW</th>
-                                <th>RT</th>
-                                <th>Aksi</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach ($rtRws as $index => $rtRw)
+                    <div class="d-flex justify-content-between align-items-center mb-3">
+                        <a href="{{ route('rt-rw.create') }}" class="btn btn-primary">
+                            <i class="fas fa-plus"></i> Tambah RT/RW
+                        </a>
+                    </div>
+
+                    <div class="table-responsive" style="overflow-x: auto; white-space: nowrap;">
+                        <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                            <thead class="thead-dark">
+                                <tr>
+                                    <th>No</th>
+                                    <th>RW</th>
+                                    <th>RT</th>
+                                    <th>Aksi</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach ($rtRws as $index => $rtRw)
                                 <tr>
                                     <td>{{ $index + 1 }}</td>
                                     <td>{{ $rtRw->rw }}</td>
                                     <td>{{ $rtRw->rt }}</td>
                                     <td>
-                                        <a href="{{ route('rt-rw.edit', $rtRw->id) }}" class="btn btn-warning btn-sm">Edit</a>
+                                        <a href="{{ route('rt-rw.edit', $rtRw->id) }}" class="btn btn-warning btn-sm">
+                                            Edit
+                                        </a>
                                         <form id="delete-form-{{ $rtRw->id }}" action="{{ route('rt-rw.destroy', $rtRw->id) }}" method="POST" class="d-inline">
                                             @csrf
                                             @method('DELETE')
-                                            <button type="button" class="btn btn-danger btn-sm" onclick="confirmDelete({{ $rtRw->id }})">Hapus</button>
+                                            <button type="button" class="btn btn-danger btn-sm" onclick="confirmDelete({{ $rtRw->id }})">
+                                                Delete
+                                            </button>
                                         </form>
                                     </td>
                                 </tr>
-                            @endforeach
-                        </tbody>
-                    </table>
+                                @endforeach
+                            </tbody>
+                        </table>
+                    </div>
+
                 </div>
             </div>
         </div>
-        <!-- /.container-fluid -->
-
     </div>
-    <!-- End of Main Content -->
-
 </div>
-<!-- End of Content Wrapper -->
 
 <script>
     function confirmDelete(id) {
@@ -87,6 +89,5 @@
         });
     }
 </script>
-
 
 @endsection

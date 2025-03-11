@@ -47,7 +47,7 @@
                     </select>
                 </div>
                 <button type="submit" class="btn btn-primary btn-sm ml-2">Filter</button>
-                <a href="{{ route('mustahik-cetak', request()->query()) }}" class="btn btn-danger btn-sm ml-2">
+                <a href="{{ route('mustahik-cetak', request()->query()) }}" class="btn btn-danger btn-sm ml-2" target="_blank">
                     <i class="fas fa-file-pdf"></i> Cetak
                 </a>
             </form>

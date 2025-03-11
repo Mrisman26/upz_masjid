@@ -21,7 +21,7 @@
                             <a class="dropdown-item filter-tahun" href="{{ route('rekap-zakat', ['tahun' => $i]) }}">{{ $i }}</a>
                         @endfor
                     </div>
-                    <a href="{{ route('rekap-zakat.cetak', ['tahun' => $tahun]) }}" class="btn btn-danger">
+                    <a href="{{ route('rekap-zakat.cetak', ['tahun' => $tahun]) }}" class="btn btn-danger" target="_blank">
                         <i class="fas fa-file-pdf"></i> Cetak PDF
                     </a>
                 </div>

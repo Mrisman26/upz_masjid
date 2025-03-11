@@ -117,6 +117,8 @@ class PdfController extends Controller
         $pdf = PDF::loadView('pdf.mustahik-pdf', compact('mustahiks'))->setPaper('f4', 'landscape');
 
         // Download file PDF dengan nama yang sudah disesuaikan
-        return $pdf->download($filename);
+        // return $pdf->download($filename);
+
+        return $pdf->stream("Rekap-Mustahik-$mustahiks.pdf"); // Bisa juga menggunakan ->download()
     }
 }

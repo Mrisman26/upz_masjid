@@ -18,7 +18,9 @@
                     <select name="kriteria" id="kriteria" class="form-control">
                         <option value="">Semua</option>
                         @foreach (['Fakir', 'Miskin', 'Amil', 'Mualaf', 'Gharim', 'Riqab', 'Fi Sabilillah', 'Ibnu Sabil'] as $item)
-                            <option value="{{ $item }}" {{ request('kriteria') == $item ? 'selected' : '' }}>{{ $item }}</option>
+                            <option value="{{ $item }}" {{ request('kriteria') == $item ? 'selected' : '' }}>
+                                {{ $item }}
+                            </option>
                         @endforeach
                     </select>
                 </div>
@@ -33,18 +35,21 @@
                         @endforeach
                     </select>
                 </div>
-
                 <div class="form-group mr-3">
                     <label for="tahun" class="mr-2">Tahun</label>
                     <select name="tahun" id="tahun" class="form-control">
                         <option value="">Semua</option>
                         @foreach ($tahun_list as $tahun)
-                            <option value="{{ $tahun }}" {{ request('tahun') == $tahun ? 'selected' : '' }}>{{ $tahun }}</option>
+                            <option value="{{ $tahun }}" {{ request('tahun') == $tahun ? 'selected' : '' }}>
+                                {{ $tahun }}
+                            </option>
                         @endforeach
                     </select>
                 </div>
-
-                <button type="submit" class="btn btn-primary">Filter</button>
+                <button type="submit" class="btn btn-primary btn-sm ml-2">Filter</button>
+                <a href="{{ route('mustahik-cetak', request()->query()) }}" class="btn btn-danger btn-sm ml-2">
+                    <i class="fas fa-file-pdf"></i> Cetak
+                </a>
             </form>
         </div>
     </div>
@@ -73,7 +78,9 @@
                             <td>{{ $index + 1 }}</td>
                             <td>{{ $mustahik->name }}</td>
                             <td>{{ $mustahik->kriteria }}</td>
-                            <td>RT {{ optional($mustahik->rtRw)->rt }} / RW {{ optional($mustahik->rtRw)->rw }}</td>
+                            <td>
+                                RT {{ optional($mustahik->rtRw)->rt }} / RW {{ optional($mustahik->rtRw)->rw }}
+                            </td>
                             <td>{{ $mustahik->keterangan ?? '-' }}</td>
                             {{-- <td>
                                 <a href="{{ route('mustahik.edit', $mustahik->id) }}" class="btn btn-warning btn-sm">Edit</a>
@@ -87,7 +94,6 @@
                         @endforeach
                     </tbody>
                 </table>
-
             </div>
         </div>
     </div>

@@ -61,7 +61,6 @@
 
 <body>
 
-
     @if($groupedZakat->isNotEmpty())
         @foreach($groupedZakat as $tanggal => $zakatList)
             @if(!$loop->first)
@@ -122,7 +121,7 @@
                         </tr>
                     </tfoot>
                 </table>
-                
+
         @endforeach
     @else
         <p class="no-data">Tidak ada data zakat untuk tahun yang dipilih.</p>

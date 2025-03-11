@@ -5,6 +5,7 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\KalkulatorZakatController;
 use App\Http\Controllers\KepalaKeluargaController;
 use App\Http\Controllers\MustahikController;
+use App\Http\Controllers\PdfController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RekapZakatController;
 use App\Http\Controllers\RtRwController;
@@ -40,7 +41,10 @@ Route::middleware(['auth'])->group(function () {
 
     Route::get('/rekap-kalkulator', [KalkulatorZakatController::class, 'index'])->name('rekap-kalkulator');
 
-    Route::get('pdf/{tahun?}', [ZakatController::class, 'exportPDF'])->name('pdf');
+    Route::get('muzaki-cetak/{tahun?}', [PdfController::class, 'muzakiPDF'])->name('muzaki-cetak');
+    Route::get('mustahik-cetak', [PdfController::class, 'mustahikPDF'])->name('mustahik-cetak');
+    Route::get('/rekap-zakat/cetak/{tahun?}', [PdfController::class, 'zakatPDF'])->name('rekap-zakat.cetak');
+
 
 });
 

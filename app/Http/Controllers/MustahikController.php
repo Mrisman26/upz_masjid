@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Mustahik;
 use App\Models\RtRw;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
 
 class MustahikController extends Controller

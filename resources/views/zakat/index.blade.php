@@ -44,7 +44,7 @@
                             </div>
 
                             <!-- Form Cetak PDF -->
-                            <form method="GET" action="{{ route('pdf') }}" class="d-flex flex-wrap gap-2 align-items-center mt-2 ml-2">
+                            <form method="GET" action="{{ route('muzaki-cetak') }}" class="d-flex flex-wrap gap-2 align-items-center mt-2 ml-2">
                                 <input type="hidden" name="tahun" value="{{ $tahun }}">
 
                                 <div class="input-group input-group-sm w-auto">

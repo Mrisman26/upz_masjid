@@ -41,6 +41,7 @@
                                 @endfor
                             </div>
                         </div>
+
                     </div>
 
                     <div class="table-responsive" style="overflow-x: auto; white-space: nowrap;">

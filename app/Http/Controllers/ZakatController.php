@@ -8,6 +8,7 @@ use App\Models\Zakat;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class ZakatController extends Controller
 {
@@ -142,34 +143,4 @@ class ZakatController extends Controller
         return redirect()->route('zakat.index');
     }
 
-    public function exportPDF(Request $request)
-    {
-        $tahun = $request->tahun;
-        $tanggal = $request->tanggal; // Format: YYYY-MM-DD
-
-        // Ambil daftar tanggal unik berdasarkan tahun
-        $tanggalList = Zakat::whereYear('created_at', $tahun)
-            ->selectRaw('DATE(created_at) as tanggal')
-            ->distinct()
-            ->orderBy('tanggal', 'desc')
-            ->pluck('tanggal');
-
-        $query = Zakat::whereYear('created_at', $tahun);
-
-        if ($tanggal) {
-            $query->whereDate('created_at', $tanggal);
-        }
-
-        $zakats = $query->get();
-
-        // **Kelompokkan data berdasarkan tanggal**
-        $groupedZakat = $zakats->groupBy(function ($item) {
-            return \Carbon\Carbon::parse($item->created_at)->format('Y-m-d');
-        });
-
-        $pdf = Pdf::loadView('zakat.pdf', compact('groupedZakat', 'tahun', 'tanggalList'))
-            ->setPaper('f4', 'landscape');
-
-        return $pdf->stream("zakat-{$tahun}.pdf");
-    }
 }

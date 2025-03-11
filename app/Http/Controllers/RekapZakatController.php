@@ -73,4 +73,5 @@ class RekapZakatController extends Controller
 
         return view('rekap.mustahik', compact('mustahiks', 'rtRws', 'tahun_list'));
     }
+    
 }

@@ -21,7 +21,12 @@
                             <a class="dropdown-item filter-tahun" href="{{ route('rekap-zakat', ['tahun' => $i]) }}">{{ $i }}</a>
                         @endfor
                     </div>
+                    <a href="{{ route('rekap-zakat.cetak', ['tahun' => $tahun]) }}" class="btn btn-danger">
+                        <i class="fas fa-file-pdf"></i> Cetak PDF
+                    </a>
                 </div>
+
+
             </div>
 
             <div class="card-body">
@@ -63,7 +68,7 @@
                                 <td class="text-center">{{ $rekap->rt_32 }}</td>
                                 <td class="text-center">{{ $rekap->rt_33 }}</td>
                                 <td class="text-center">{{ $rekap->rw_01 }}</td>
-                                <td class="text-right">{{ number_format($rekap['total_beras'] ?? 0, 2) }} Liter</td>
+                                <td class="text-right">{{ number_format($rekap['total_beras'] ?? 0, 1) }} Liter</td>
                                 <td class="text-right">Rp {{ number_format($rekap['total_uang'] ?? 0, 0, ',', '.') }}</td>
                                 <td class="text-right">Rp {{ number_format($rekap['total_mal'] ?? 0, 0, ',', '.') }}</td>
                                 <td class="text-right">Rp {{ number_format($rekap['total_penghasilan'] ?? 0, 0, ',', '.') }}</td>
@@ -139,7 +144,7 @@
             $("#totalRT32").text(total.RT32);
             $("#totalRT33").text(total.RT33);
             $("#totalRW01").text(total.RW01);
-            $("#totalBeras").text(total.Beras.toFixed(2) + " Liter");
+            $("#totalBeras").text(total.Beras.toFixed(1) + " Liter");
             $("#totalUang").text("Rp " + total.Uang.toLocaleString("id-ID"));
             $("#totalMal").text("Rp " + total.Mal.toLocaleString("id-ID"));
             $("#totalPenghasilan").text("Rp " + total.Penghasilan.toLocaleString("id-ID"));

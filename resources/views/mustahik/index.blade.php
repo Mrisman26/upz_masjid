@@ -26,9 +26,20 @@
                     @endif
 
                     <div class="d-flex flex-wrap justify-content-between align-items-center mb-3">
-                        <a href="{{ route('mustahik.create') }}" class="btn btn-primary mb-3">
-                            <i class="fas fa-plus"></i> Tambah Mustahik
-                        </a>
+                        <!-- Wrapper untuk menjaga posisi tombol -->
+                        <div class="btn-wrapper" style="min-width: 170px;">
+                            @role('admin')
+                                <a href="{{ route('mustahik.create') }}" class="btn btn-primary mb-3">
+                                    <i class="fas fa-plus"></i> Tambah Mustahik
+                                </a>
+                            @else
+                                <span style="visibility: hidden; display: inline-block;">
+                                    <a class="btn btn-primary mb-3 disabled">
+                                        <i class="fas fa-plus"></i> Tambah Mustahik
+                                    </a>
+                                </span>
+                            @endrole
+                        </div>
 
                         <div class="dropdown">
                             <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownTahun"
@@ -37,12 +48,12 @@
                             </button>
                             <div class="dropdown-menu" aria-labelledby="dropdownTahun">
                                 @for ($i = 2020; $i <= date('Y'); $i++)
-                                <a class="dropdown-item filter-tahun" href="#" data-tahun="{{ $i }}">{{ $i }}</a>
+                                    <a class="dropdown-item filter-tahun" href="#" data-tahun="{{ $i }}">{{ $i }}</a>
                                 @endfor
                             </div>
                         </div>
-
                     </div>
+
 
                     <div class="table-responsive" style="overflow-x: auto; white-space: nowrap;">
                         <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
@@ -67,16 +78,18 @@
                                     <td>{{ $mustahik->rtRw->rt ?? '-' }}</td>
                                     <td>{{ $mustahik->keterangan }}</td>
                                     <td>
-                                        <a href="{{ route('mustahik.edit', $mustahik->id) }}" class="btn btn-warning btn-sm">
-                                            Edit</i>
-                                        </a>
-                                        <form id="delete-form-{{ $mustahik->id }}" action="{{ route('mustahik.destroy', $mustahik->id) }}" method="POST" class="d-inline">
-                                            @csrf
-                                            @method('DELETE')
-                                            <button type="button" class="btn btn-danger btn-sm" onclick="confirmDelete({{ $mustahik->id }})">
-                                                Delete</i>
-                                            </button>
-                                        </form>
+                                        @role('admin')
+                                            <a href="{{ route('mustahik.edit', $mustahik->id) }}" class="btn btn-warning btn-sm">
+                                                Edit</i>
+                                            </a>
+                                            <form id="delete-form-{{ $mustahik->id }}" action="{{ route('mustahik.destroy', $mustahik->id) }}" method="POST" class="d-inline">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button type="button" class="btn btn-danger btn-sm" onclick="confirmDelete({{ $mustahik->id }})">
+                                                    Delete</i>
+                                                </button>
+                                            </form>
+                                        @endrole
                                     </td>
                                 </tr>
                                 @endforeach

@@ -5,7 +5,9 @@ namespace Database\Seeders;
 use App\Models\User;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
+use Spatie\Permission\Models\Role;
 
 class UserSeeder extends Seeder
 {
@@ -14,16 +16,28 @@ class UserSeeder extends Seeder
      */
     public function run(): void
     {
-        User::create([
-            'name' => 'risman',
-            'email' => 'risman@gmail.com',
-            'password' => Hash::make('12345678'),
-        ]);
+        DB::transaction(function () {
+            // Pastikan role sudah ada sebelum meng-assign ke user
+            $adminRole = Role::firstOrCreate(['name' => 'admin']);
+            $userRole = Role::firstOrCreate(['name' => 'user']);
 
-        User::create([
-            'name' => 'ajiz',
-            'email' => 'ajiz@gmail.com',
-            'password' => Hash::make('12345678'),
-        ]);
+            // Buat atau ambil user Admin
+            $admin = User::firstOrCreate([
+                'email' => 'm.rismanagustianajiz@gmail.com',
+            ], [
+                'name' => 'Muhammad Risman Agustiansyah Ajiz',
+                'password' => Hash::make('12345678'),
+            ]);
+            $admin->assignRole($adminRole); // Berikan role admin
+
+            // Buat atau ambil user Biasa
+            $user = User::firstOrCreate([
+                'email' => 'johnsmax15@gmail.com',
+            ], [
+                'name' => 'Jhons',
+                'password' => Hash::make('12345678'),
+            ]);
+            $user->assignRole($userRole); // Berikan role user
+        });
     }
 }

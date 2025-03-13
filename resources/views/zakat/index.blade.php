@@ -24,11 +24,25 @@
                     @endif
 
                     <div class="d-flex flex-wrap justify-content-between align-items-center mb-3 gap-2">
-                        <a href="{{ route('kepala-keluarga.create') }}" class="btn btn-primary btn-sm">
-                            <i class="fas fa-plus"></i> Tambah Data Zakat
-                        </a>
 
-                        <div class="d-flex flex-wrap gap-2 align-items-center">
+                        <!-- Tombol Tambah Data Zakat -->
+                        <div class="btn-wrapper" style="min-width: 160px;">
+                            @if(auth()->user()->can('create zakat'))
+                            <a href="{{ route('kepala-keluarga.create') }}" class="btn btn-primary btn-sm">
+                                <i class="fas fa-plus"></i> Tambah Data Zakat
+                            </a>
+                            @else
+                            <span style="visibility: hidden; display: inline-block;">
+                                <!-- Tetap menjaga space -->
+                                <a class="btn btn-primary btn-sm disabled">
+                                    <i class="fas fa-plus"></i> Tambah Data Zakat
+                                </a>
+                            </span>
+                            @endif
+                        </div>
+
+                        <div class="d-flex flex-wrap gap-2 align-items-center flex-grow-1 justify-content-end">
+
                             <!-- Dropdown Pilihan Tahun -->
                             <div class="dropdown mt-2">
                                 <button class="btn btn-secondary btn-sm dropdown-toggle" type="button"
@@ -37,14 +51,15 @@
                                     Tahun: {{ $tahun }}
                                 </button>
                                 <div class="dropdown-menu" aria-labelledby="dropdownTahun">
-                                    @for ($i = 2019; $i <= date('Y'); $i++)
-                                        <a class="dropdown-item filter-tahun" href="#" data-tahun="{{ $i }}">{{ $i }}</a>
-                                    @endfor
+                                    @for ($i = 2019; $i <= date('Y'); $i++) <a class="dropdown-item filter-tahun"
+                                        href="#" data-tahun="{{ $i }}">{{ $i }}</a>
+                                        @endfor
                                 </div>
                             </div>
 
                             <!-- Form Cetak PDF -->
-                            <form method="GET" action="{{ route('muzaki-cetak') }}" class="d-flex flex-wrap gap-2 align-items-center mt-2 ml-2" target="_blank">
+                            <form method="GET" action="{{ route('muzaki-cetak') }}"
+                                class="d-flex flex-wrap gap-2 align-items-center mt-2 ml-2" target="_blank">
                                 <input type="hidden" name="tahun" value="{{ $tahun }}">
 
                                 <div class="input-group input-group-sm w-auto">
@@ -54,9 +69,9 @@
                                     <select name="tanggal" class="form-control">
                                         <option value="">Semua Tanggal</option>
                                         @foreach($tanggalList as $tgl)
-                                            <option value="{{ $tgl }}" {{ request('tanggal') == $tgl ? 'selected' : '' }}>
-                                                {{ \Carbon\Carbon::parse($tgl)->format('d M Y') }}
-                                            </option>
+                                        <option value="{{ $tgl }}" {{ request('tanggal') == $tgl ? 'selected' : '' }}>
+                                            {{ \Carbon\Carbon::parse($tgl)->format('d M Y') }}
+                                        </option>
                                         @endforeach
                                     </select>
                                 </div>
@@ -65,8 +80,10 @@
                                     <i class="fas fa-file-pdf"></i> Cetak
                                 </button>
                             </form>
+
                         </div>
                     </div>
+
 
                     <div class="table-responsive" style="overflow-x: auto; white-space: nowrap;">
                         <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
@@ -94,16 +111,26 @@
                                     <td>Rp {{ number_format($zakat->zakat_penghasilan, 0, ',', '.') }}</td>
                                     <td>Rp {{ number_format($zakat->infaq, 0, ',', '.') }}</td>
                                     <td>
-                                        <a href="{{ route('zakat.edit', $zakat->id) }}"
-                                            class="btn btn-warning btn-sm mb-2">Edit</a>
+                                        <!-- Tombol Show (Dapat diakses oleh semua role) -->
                                         <a href="{{ route('zakat.show', $zakat->id) }}"
                                             class="btn btn-primary btn-sm mb-2">Show</a>
+
+                                        @role('admin')
+                                        <!-- Tombol Edit dan Delete (Hanya untuk Admin) -->
+                                        <a href="{{ route('zakat.edit', $zakat->id) }}"
+                                            class="btn btn-warning btn-sm mb-2">Edit</a>
+
                                         <form action="{{ route('zakat.destroy', $zakat->id) }}" method="POST"
                                             class="d-inline">
                                             @csrf
                                             @method('DELETE')
-                                            <button type="submit" class="btn btn-danger btn-sm mb-2">Delete</button>
+                                            <button type="submit" class="btn btn-danger btn-sm mb-2"
+                                                onclick="return confirm('Apakah Anda yakin ingin menghapus data ini?')">
+                                                Delete
+                                            </button>
                                         </form>
+                                        @endrole
+
                                     </td>
                                 </tr>
                                 @endforeach

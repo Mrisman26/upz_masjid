@@ -45,7 +45,6 @@ Route::middleware(['auth'])->group(function () {
     Route::get('mustahik-cetak', [PdfController::class, 'mustahikPDF'])->name('mustahik-cetak');
     Route::get('/rekap-zakat/cetak/{tahun?}', [PdfController::class, 'zakatPDF'])->name('rekap-zakat.cetak');
 
-
 });
 
 require __DIR__.'/auth.php';

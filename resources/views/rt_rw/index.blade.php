@@ -26,9 +26,20 @@
                     @endif
 
                     <div class="d-flex justify-content-between align-items-center mb-3">
-                        <a href="{{ route('rt-rw.create') }}" class="btn btn-primary">
-                            <i class="fas fa-plus"></i> Tambah RT/RW
-                        </a>
+                        <!-- Wrapper untuk menjaga posisi tombol -->
+                        <div class="btn-wrapper" style="min-width: 170px;">
+                            @role('admin')
+                                <a href="{{ route('rt-rw.create') }}" class="btn btn-primary mb-3">
+                                    <i class="fas fa-plus"></i> Tambah RT/RW
+                                </a>
+                            @else
+                                <span style="visibility: hidden; display: inline-block;">
+                                    <a class="btn btn-primary mb-3 disabled">
+                                        <i class="fas fa-plus"></i> Tambah RT/RW
+                                    </a>
+                                </span>
+                            @endrole
+                        </div>
                     </div>
 
                     <div class="table-responsive" style="overflow-x: auto; white-space: nowrap;">
@@ -48,16 +59,18 @@
                                     <td>{{ $rtRw->rw }}</td>
                                     <td>{{ $rtRw->rt }}</td>
                                     <td>
-                                        <a href="{{ route('rt-rw.edit', $rtRw->id) }}" class="btn btn-warning btn-sm">
-                                            Edit
-                                        </a>
-                                        <form id="delete-form-{{ $rtRw->id }}" action="{{ route('rt-rw.destroy', $rtRw->id) }}" method="POST" class="d-inline">
-                                            @csrf
-                                            @method('DELETE')
-                                            <button type="button" class="btn btn-danger btn-sm" onclick="confirmDelete({{ $rtRw->id }})">
-                                                Delete
-                                            </button>
-                                        </form>
+                                        @role('admin')
+                                            <a href="{{ route('rt-rw.edit', $rtRw->id) }}" class="btn btn-warning btn-sm">
+                                                Edit
+                                            </a>
+                                            <form id="delete-form-{{ $rtRw->id }}" action="{{ route('rt-rw.destroy', $rtRw->id) }}" method="POST" class="d-inline">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button type="button" class="btn btn-danger btn-sm" onclick="confirmDelete({{ $rtRw->id }})">
+                                                    Delete
+                                                </button>
+                                            </form>
+                                        @endrole
                                     </td>
                                 </tr>
                                 @endforeach

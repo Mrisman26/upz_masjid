@@ -16,6 +16,12 @@ class ZakatController extends Controller
     {
         // Pastikan hanya pengguna yang sudah login dapat mengakses controller ini
         $this->middleware('auth');
+
+        // Hanya admin yang dapat mengakses semua metode
+        $this->middleware('role:admin')->only(['create', 'store', 'edit', 'update', 'destroy']);
+
+        // Hanya pengguna yang memiliki izin "view zakat" yang dapat melihat daftar zakat
+        $this->middleware('permission:view zakat')->only('index');
     }
 
     /**

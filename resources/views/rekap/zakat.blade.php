@@ -10,23 +10,28 @@
         <div class="card shadow mb-8">
             <div class="card-header py-3 d-flex justify-content-between align-items-center">
                 <h6 class="m-0 font-weight-bold text-primary"><span id="dropdownTahun">{{ $tahun }}</span></h6>
+
                 <!-- Dropdown Filter Tahun -->
-                <div class="dropdown">
-                    <button class="btn btn-primary dropdown-toggle" type="button" id="btnDropdownTahun"
-                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        Pilih Tahun
-                    </button>
-                    <div class="dropdown-menu" aria-labelledby="btnDropdownTahun">
-                        @for ($i = 2020; $i <= date('Y'); $i++)
-                            <a class="dropdown-item filter-tahun" href="{{ route('rekap-zakat', ['tahun' => $i]) }}">{{ $i }}</a>
-                        @endfor
+                <div class="d-flex align-items-center gap-2">
+                    <div class="dropdown mr-2">
+                        <button class="btn btn-primary dropdown-toggle" type="button" id="btnDropdownTahun"
+                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Pilih Tahun
+                        </button>
+                        <div class="dropdown-menu" aria-labelledby="btnDropdownTahun">
+                            @for ($i = 2020; $i <= date('Y'); $i++)
+                                <a class="dropdown-item filter-tahun" href="{{ route('rekap-zakat', ['tahun' => $i]) }}">{{ $i }}</a>
+                            @endfor
+                        </div>
                     </div>
-                    <a href="{{ route('rekap-zakat.cetak', ['tahun' => $tahun]) }}" class="btn btn-danger" target="_blank">
-                        <i class="fas fa-file-pdf"></i> Cetak PDF
-                    </a>
+
+                    <!-- Cetak PDF hanya untuk admin -->
+                    @role('admin')
+                        <a href="{{ route('rekap-zakat.cetak', ['tahun' => $tahun]) }}" class="btn btn-danger d-inline-block" target="_blank">
+                            <i class="fas fa-file-pdf"></i> Cetak PDF
+                        </a>
+                    @endrole
                 </div>
-
-
             </div>
 
             <div class="card-body">

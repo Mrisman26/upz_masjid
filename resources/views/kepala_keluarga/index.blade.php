@@ -24,9 +24,21 @@
                     @endif
 
                     <div class="d-flex flex-wrap justify-content-between align-items-center mb-3">
-                        <a href="{{ route('kepala-keluarga.create') }}" class="btn btn-primary mb-3">
-                            <i class="fas fa-plus"></i> Tambah Data
-                        </a>
+                        <!-- Wrapper untuk menjaga posisi tombol -->
+                        <div class="btn-wrapper" style="min-width: 170px;">
+                            @role('admin')
+                                <a href="{{ route('kepala-keluarga.create') }}" class="btn btn-primary mb-3">
+                                    <i class="fas fa-plus"></i> Tambah Data
+                                </a>
+                            @else
+                                <span style="visibility: hidden; display: inline-block;">
+                                    <a class="btn btn-primary mb-3 disabled">
+                                        <i class="fas fa-plus"></i> Tambah Data
+                                    </a>
+                                </span>
+                            @endrole
+                        </div>
+
                         <div class="dropdown">
                             <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownTahun" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 {{ $tahun }}
@@ -38,6 +50,7 @@
                             </div>
                         </div>
                     </div>
+
 
                     <div class="table-responsive" style="overflow-x: auto; white-space: nowrap;">
                         <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
